@@ -55,8 +55,8 @@ io.on('connection', (socket)=>{
 		}
 	  }
 	  else {
-			console.log(data + ' tried to join the chat.');
-			io.emit('is_online', data, '<b>' + data + ' tried to join the chat.</b>');
+			console.log(data + ' attempted to join the chat with the wrong password.');
+			io.emit('is_online', data, '<b>' + data + ' attempted to join the chat with the wrong password.</b>');
 	  } 
    })
    socket.on('typing', (data)=>{
