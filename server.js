@@ -55,8 +55,8 @@ io.on('connection', (socket)=>{
 		}
 	  }
 	  else {
-			console.log(data.substring(1) + ' tried to join the chat.');
-			io.emit('is_online', data, '<b>' + data.substring(1) + ' tried to join the chat.</b>');
+			console.log(data + ' tried to join the chat.');
+			io.emit('is_online', data, '<b>' + data + ' tried to join the chat.</b>');
 	  } 
    })
    socket.on('typing', (data)=>{
