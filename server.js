@@ -11,6 +11,8 @@ app.use(bodyParser.json())
 var messages=[]
 var users=[]
 
+var anon = 0
+
 app.get('/', (req, res) => {
    res.sendFile('index.html', {root: __dirname })
 })
@@ -27,28 +29,35 @@ app.get('/messages', (req,res)=>{
 
 io.on('connection', (socket)=>{
    var userId;
-	
-   console.log('A user connected.')
    
-   socket.on('setUserName', (data)=>{
-      if(users.indexOf(data)==-1){
-		if(data[0]=='A') {
-			data = data.substring(1);
+   console.log("A user has connected.")
+   
+   socket.on('setUserName', (data)=>{	  
+	  if(data[0]=='A') {
+		data = data.substring(1); //extract username
+		
+		if(users.indexOf(data)==-1){ //check if user is already in the chatroom
+			if(data=="") { //join anonymously
+				anon++
+				data = "Anonymous " + anon
+			}
 			users.push(data);
 			userId = data;
+			
 			console.log(data + " joined the chat!");
 			io.emit('is_online', data, '<i>' + data + ' joined the chat!</i>');
 			socket.emit('userSet', {username:data});
-		}
-		else {
-			console.log(data + ' tried to join the chat.');
-			io.emit('is_online', data, '<b>' + data + ' tried to join the chat.</b>');
-		} 
 		 
-      }else{
-         console.log('server mai')
-         socket.emit('userExists', `${data} already exists, please change your Username to join the chat`)
-      }
+		} else{ //user is already in the chatroom
+			console.log(data + " tried to join the chat again.")
+			io.emit('is_online', data, '<b>' + data + ' tried to join the chat again.</b>');
+			socket.emit('userExists', `${data} already exists, please change your Username to join the chat`)
+		}
+	  }
+	  else {
+			console.log(data.substring(1) + ' tried to join the chat.');
+			io.emit('is_online', data, '<b>' + data.substring(1) + ' tried to join the chat.</b>');
+	  } 
    })
    socket.on('typing', (data)=>{
       if(data.typing==true)
@@ -63,12 +72,6 @@ io.on('connection', (socket)=>{
 	  io.emit('is_online', userId, '<i>' + userId + ' left the chat.</i>')
    })
 })
-
-/*io.on('disconnect', (socket)=>{
-	console.log('A user disconnected')
-	
-	io.emit('is_online', '... left the chat!')
-})*/
 
 const port = process.env.PORT || 3000
 var server = http.listen(port, () => {
