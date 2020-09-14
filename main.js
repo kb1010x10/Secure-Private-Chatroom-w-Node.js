@@ -80,7 +80,7 @@ function sendMessage(){
     var message = $('#unit').val()
     var unit = `{"${userName}" : "${message}"}`
     $.post('/send_message', JSON.parse(unit), ()=>{
-    console.log('unit posted succesfully')
+    console.log('unit posted successfully')
     })
     $('#unit').val("")
 }

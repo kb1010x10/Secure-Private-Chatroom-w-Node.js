@@ -28,7 +28,23 @@
         </div>		
 		
         <input type="text" class="form-control" id="unit" placeholder="Username" aria-label="unit" aria-describedby="basic-addon1"> 
-	  
+		
+		<script>
+			var i = 0;
+			$(document).on("keypress", "input", function(e) {
+				if(e.which==13 && i==0) {
+					alert("enter key pressed");
+					var s = document.getElementById('unit').value;
+					
+					setUserName();
+			
+					if(s[0]=='A') {
+						i += 1;
+					}
+				}
+			});
+		</script>
+		
 	  </div>
       <input type="button" class="btn btn-success" id="send" value="Go to chat" onclick="setUserName()">
       <div class="typing"></div>

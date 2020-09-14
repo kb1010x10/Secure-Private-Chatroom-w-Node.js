@@ -13,6 +13,37 @@ var users=[]
 
 var anon = 0
 
+var mysql = require('mysql')
+
+var con = mysql.createConnection({
+	host: "localhost",
+	user: "root",
+	password: "Mathgenius1998",
+	database: "mydb"
+});
+
+con.connect(function(err) {
+	if (err) throw err;
+	console.log("Connected to MySQL database.");
+	/*
+	con.query("CREATE DATABASE mydb", function (err, result) {
+		if (err) throw err;
+		console.log("Database created.");
+	});
+	
+	/*var sql = "CREATE TABLE users (name VARCHAR(15))";
+	con.query(sql, function (err, result){
+		if (err) throw err;
+		console.log("Table Created.");
+	});
+	
+	var sql = "ALTER TABLE users ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY";
+	con.query(sql, function (err, result) {
+		if(err) throw err;
+		console.log("Table altered.");
+	});*/
+});
+
 app.get('/', (req, res) => {
    res.sendFile('index.html', {root: __dirname })
 })
@@ -47,6 +78,18 @@ io.on('connection', (socket)=>{
 			console.log(data + " joined the chat!");
 			io.emit('is_online', data, '<i>' + data + ' joined the chat!</i>');
 			socket.emit('userSet', {username:data});
+			
+			//add user to database
+			var sql = "INSERT INTO users (name) VALUES ('" + data + "')";
+			con.query(sql, function(err, result) {
+				if (err) throw err;
+				console.log("1 record inserted.");
+			});
+			
+			con.query("SELECT * FROM users", function(err, result, fields) {
+				if (err) throw err;
+				console.log(result);
+			});
 		 
 		} else{ //user is already in the chatroom
 			console.log(data + " tried to join the chat again.")
@@ -68,6 +111,11 @@ io.on('connection', (socket)=>{
    
    socket.on('disconnect', (data)=> {
 	  console.log(userId + ' left the chat.')
+	  
+	  var sql = "DELETE FROM users WHERE name='" + userId + "'";
+	  con.query(sql, function(err, result) {
+		  if (err) throw err;
+	  });
 	  
 	  io.emit('is_online', userId, '<i>' + userId + ' left the chat.</i>')
    })
