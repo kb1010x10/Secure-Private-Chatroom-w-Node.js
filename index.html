@@ -32,18 +32,20 @@
 		<script>
 			var i = 0;
 			var pw = "123";
-			$(document).on("keypress", "input", function(e) {
-				if(e.which==13 && i==0) {
-					//alert("enter key pressed");
-					var s = document.getElementById('unit').value;
+			if(i==0) {
+				$(document).on("keypress", "input", function(e) {
+					if(e.which==13 && i==0) {
+						//alert("enter key pressed");
+						var s = document.getElementById('unit').value;
 					
-					setUserName();
-			
-					if(s[0]==pw) { //if the right password is entered, stop checking if the enter key is pressed
-						i += 1;
+						if(s.substring(0,pw.length)==pw) { //if the right password is entered, stop checking if the enter key is pressed
+							i = 1;
+						}
+					
+						setUserName();
 					}
-				}
-			});
+				});
+			}
 		</script>
 		
 	  </div>

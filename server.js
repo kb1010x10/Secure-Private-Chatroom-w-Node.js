@@ -27,7 +27,7 @@ var pw = new String("123"); //this is the password
 con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected to MySQL database.");
-	/*
+	
 	con.query("CREATE DATABASE mydb", function (err, result) {
 		if (err) throw err;
 		console.log("Database created.");
