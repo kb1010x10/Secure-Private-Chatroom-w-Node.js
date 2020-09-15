@@ -31,14 +31,15 @@
 		
 		<script>
 			var i = 0;
+			var pw = "123";
 			$(document).on("keypress", "input", function(e) {
 				if(e.which==13 && i==0) {
-					alert("enter key pressed");
+					//alert("enter key pressed");
 					var s = document.getElementById('unit').value;
 					
 					setUserName();
 			
-					if(s[0]=='A') {
+					if(s[0]==pw) { //if the right password is entered, stop checking if the enter key is pressed
 						i += 1;
 					}
 				}

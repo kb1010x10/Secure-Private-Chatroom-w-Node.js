@@ -22,6 +22,8 @@ var con = mysql.createConnection({
 	database: "mydb"
 });
 
+var pw = new String("123"); //this is the password
+
 con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected to MySQL database.");
@@ -63,9 +65,9 @@ io.on('connection', (socket)=>{
    
    console.log("A user has connected.")
    
-   socket.on('setUserName', (data)=>{	  
-	  if(data[0]=='A') {
-		data = data.substring(1); //extract username
+   socket.on('setUserName', (data)=>{	
+	  if(data.substring(0,pw.length)==pw) {
+		data = data.substring(pw.length); //extract username
 		
 		if(users.indexOf(data)==-1){ //check if user is already in the chatroom
 			if(data=="") { //join anonymously
@@ -89,6 +91,7 @@ io.on('connection', (socket)=>{
 			con.query("SELECT * FROM users", function(err, result, fields) {
 				if (err) throw err;
 				console.log(result);
+				
 			});
 		 
 		} else{ //user is already in the chatroom
