@@ -1,0 +1,19 @@
+{
+  "name": "chatroom",
+  "version": "12.18.2",
+  "description": "chatroom",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "caleb",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "Secure-Private-Chatroom-w-Node.js"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
