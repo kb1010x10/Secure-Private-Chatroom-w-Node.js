@@ -28,12 +28,12 @@ con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected to MySQL database.");
 	
-	/*con.query("CREATE DATABASE mydb", function (err, result) {
+	con.query("CREATE DATABASE mydb", function (err, result) {
 		if (err) throw err;
 		console.log("Database created.");
 	});
 	
-	var sql = "CREATE TABLE users (name VARCHAR(15))";
+	/*var sql = "CREATE TABLE users (name VARCHAR(15))";
 	con.query(sql, function (err, result){
 		if (err) throw err;
 		console.log("Table Created.");
@@ -124,7 +124,7 @@ io.on('connection', (socket)=>{
    })
 })
 
-const port = process.env.PORT || 3000
-var server = http.listen(port, () => {
+const port = 443
+var server = http.listen(port, 52.200.37.44, () => {
    console.log(`app listening at port ${server.address().port}`)
 })
