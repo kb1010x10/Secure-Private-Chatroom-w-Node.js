@@ -13,18 +13,18 @@ var users=[]
 
 var anon = 0
 
-var mysql = require('mysql')
+/*var mysql = require('mysql')
 
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "Mathgenius1998",
 	database: "mydb"
-});
+});*/
 
 var pw = new String("123"); //this is the password
 
-con.connect(function(err) {
+/*con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected to MySQL database.");
 	
@@ -44,7 +44,7 @@ con.connect(function(err) {
 		if(err) throw err;
 		console.log("Table altered.");
 	});*/
-});
+//});
 
 app.get('/', (req, res) => {
    res.sendFile('index.html', {root: __dirname })
@@ -115,13 +115,13 @@ io.on('connection', (socket)=>{
    socket.on('disconnect', (data)=> {
 	  console.log(userId + ' left the chat.')
 	  
-	  var sql = "DELETE FROM users WHERE name='" + userId + "'";
+	  /*var sql = "DELETE FROM users WHERE name='" + userId + "'";
 	  con.query(sql, function(err, result) {
 		  if (err) throw err;
-	  });
+	  });*/
 	  
 	  io.emit('is_online', userId, '<i>' + userId + ' left the chat.</i>')
    })
 })
 
-var server = http.listen(443, 52.200.37.44)
+//var server = http.listen(443, 'bubbol.herokuapp.com')

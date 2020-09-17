@@ -60,7 +60,7 @@ function typingTimeout(){
 }
 
 function getMessages(){
-    $.getJSON("http://localhost:3000/messages/", (data)=>{
+    $.getJSON("https://bubbol.herokuapp.com/", (data)=>{
         var message = []
         $.each(data, (key, val) => {
         $.each(val, (key, val) => {
