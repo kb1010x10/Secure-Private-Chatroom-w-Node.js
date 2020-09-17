@@ -124,7 +124,4 @@ io.on('connection', (socket)=>{
    })
 })
 
-const port = 443
-var server = http.listen(port, 52.200.37.44, () => {
-   console.log(`app listening at port ${server.address().port}`)
-})
+var server = http.listen(443, 52.200.37.44)
